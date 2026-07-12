@@ -5,6 +5,7 @@ import { userController } from "./user.controller";
 const router=Router()
 // register user route
 router.post("/register",userController.postUserIntoDb)
+router.post("/login",userController.postUserIntoDb)
 
 
 export const userRouter=router;

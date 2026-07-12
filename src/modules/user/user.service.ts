@@ -2,6 +2,8 @@ import { prisma } from "../../lib/prisma"
 import { PayloadUser } from "./user.interface"
 import bcrypt from "bcrypt"
 
+
+// register user into db 
 const postUserIntoDb=async(payload:PayloadUser)=>{
     console.log(payload)
     const { name, email, role, password,location } = payload;
@@ -64,6 +66,13 @@ return transactionResult;
 }
 
 
+// login user form database 
+const loginUser=async()=>{
+
+}
+
+
 export const userService={
     postUserIntoDb,
+    loginUser,
 }

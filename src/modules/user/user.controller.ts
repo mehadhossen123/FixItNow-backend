@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import { userService } from "./user.service";
 import httpStatus from "http-status-codes"
 
+
+
+// user register 
 const postUserIntoDb=async(req:Request,res:Response)=>{
     try {
         const payload=req.body;
@@ -23,6 +26,13 @@ const postUserIntoDb=async(req:Request,res:Response)=>{
         })
         
     }
+}
+
+
+// user login 
+const loginUser=async(req:Request,res:Response)=>{
+    const payload=req.body;
+    console.log(payload)
 }
 
 export const userController={
