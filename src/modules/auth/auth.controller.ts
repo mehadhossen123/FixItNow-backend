@@ -69,7 +69,43 @@ const loginUser=async(req:Request,res:Response)=>{
     }
 }
 
-export const authController={
-    postUserIntoDb,
-    loginUser
+
+// make access token using refresh token 
+const makeAccessToken=async(req:Request,res:Response)=>{
+
+     try {
+       const token = req?.cookies?.refreshToken;
+    
+
+       const accessToken =
+         await authService.makeAccessToken(token );
+
+       res.cookie("accessToken", accessToken, {
+         secure: true,
+         httpOnly: true,
+         sameSite: "none",
+         maxAge: 1000 * 60 * 60 * 24, // mili second in one day
+       });
+
+      
+       res.status(httpStatus.OK).json({
+         success: true,
+         message: "Get refresh token",
+         data: { accessToken}
+         
+       });
+     } catch (error: any) {
+       res.status(httpStatus.FORBIDDEN).json({
+         success: false,
+         message: `${error.message}`,
+         data: null,
+       });
+     }
+
 }
+
+export const authController = {
+  postUserIntoDb,
+  loginUser,
+  makeAccessToken,
+};

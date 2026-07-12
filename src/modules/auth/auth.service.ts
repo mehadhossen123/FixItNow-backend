@@ -1,9 +1,10 @@
-import { JwtPayload } from "jsonwebtoken"
+import { JwtPayload, SignOptions } from "jsonwebtoken"
 import config from "../../config"
 import { prisma } from "../../lib/prisma"
 import { makeToken } from "../../utilities/tokenUtilities"
 import { LoginPayload, PayloadUser } from "./auth.interface"
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
 
 
@@ -106,10 +107,14 @@ const jwtPayload:JwtPayload={
 }
 
 // make access token 
-const accessToken= makeToken(jwtPayload,config.jWt_access_secret ,{expiresIn:config.jWt_access_expires_in  }) 
+const accessToken = makeToken(jwtPayload, config.jWt_access_secret, {
+  expiresIn: config.jWt_access_expires_in as SignOptions["expiresIn"],
+}); 
 // make refresh token 
 
-const refreshToken=makeToken(jwtPayload,config.jwt_refresh_secret,{expiresIn:config.jwt_refresh_expires_in}) 
+const refreshToken = makeToken(jwtPayload, config.jwt_refresh_secret, {
+  expiresIn: config.jwt_refresh_expires_in as SignOptions["expiresIn"],
+}); 
 
 
 return{
@@ -125,7 +130,45 @@ return{
 };
 
 
-export const authService={
-    postUserIntoDb,
-    loginUser,
-}
+// make access token using refresh token
+const makeAccessToken = async (token: string) => {
+  const verifyToken = jwt.verify(token, config.jwt_refresh_secret);
+  if (!verifyToken) {
+    throw new Error("Refresh token required!");
+  }
+
+  const { id } = verifyToken as JwtPayload;
+  //    find user
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+
+  if (!user) {
+    throw new Error("User doesn't found");
+  }
+  if (user.isActive == false) {
+    throw new Error("Your account is not active");
+  }
+
+  //make jwt payload
+  const jwtPayload: JwtPayload = {
+    id: user?.id,
+    name: user?.name,
+    email: user?.email,
+    role: user?.role,
+  };
+
+  // make access token
+  const accessToken = makeToken(jwtPayload, config.jWt_access_secret, {
+    expiresIn: config.jWt_access_expires_in as SignOptions["expiresIn"],
+  });
+
+  return accessToken;
+};
+
+
+export const authService = {
+  postUserIntoDb,
+  loginUser,
+  makeAccessToken,
+};
