@@ -166,9 +166,15 @@ const makeAccessToken = async (token: string) => {
   return accessToken;
 };
 
+// get my profile form db 
+const getMyProfile=async()=>{
+
+}
+
 
 export const authService = {
   postUserIntoDb,
   loginUser,
   makeAccessToken,
+  getMyProfile,
 };

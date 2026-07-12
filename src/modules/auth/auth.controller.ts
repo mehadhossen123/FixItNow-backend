@@ -104,8 +104,35 @@ const makeAccessToken=async(req:Request,res:Response)=>{
 
 }
 
+
+// get my profile api 
+const getMyProfile=async(req:Request,res:Response)=>{
+     try {
+      
+
+       
+
+      
+
+       res.status(httpStatus.OK).json({
+         success: true,
+         message: "Get refresh token",
+         data: { accessToken },
+       });
+     } catch (error: any) {
+       res.status(httpStatus.FORBIDDEN).json({
+         success: false,
+         message: `${error.message}`,
+         data: null,
+       });
+     }
+
+
+}
+
 export const authController = {
   postUserIntoDb,
   loginUser,
   makeAccessToken,
+  getMyProfile,
 };
