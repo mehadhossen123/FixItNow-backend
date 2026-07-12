@@ -1,0 +1,8 @@
+// user Role 
+ enum Role{
+    CUSTOMER
+    ADMIN
+    TECHNICIAN
+
+
+}

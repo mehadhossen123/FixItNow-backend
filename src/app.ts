@@ -18,6 +18,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
+//  here my all route 
+app.use("/api/auth",userRouter)
+
 
 app.get("/",(req:Request,res:Response)=>{
     res.send("the is the Fixitnow server ")
