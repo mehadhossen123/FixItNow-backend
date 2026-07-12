@@ -2,7 +2,7 @@ import cookieParser from "cookie-parser";
 import express, { Application, Request, Response } from "express";
 import cors from "cors"
 import config from "./config";
-import { userRouter } from "./modules/user/user.router";
+import { authRouter} from "./modules/auth/auth.router";
 
 const app:Application=express()
 
@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 //  here my all route 
-app.use("/api/auth",userRouter)
+app.use("/api/auth",authRouter)
 
 
 app.get("/",(req:Request,res:Response)=>{

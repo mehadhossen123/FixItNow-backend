@@ -1,6 +1,10 @@
+import { JwtPayload } from "jsonwebtoken"
+import config from "../../config"
 import { prisma } from "../../lib/prisma"
-import { PayloadUser } from "./user.interface"
+import { makeToken } from "../../utilities/tokenUtilities"
+import { LoginPayload, PayloadUser } from "./auth.interface"
 import bcrypt from "bcrypt"
+
 
 
 // register user into db 
@@ -67,12 +71,61 @@ return transactionResult;
 
 
 // login user form database 
-const loginUser=async()=>{
+const loginUser = async (payload: LoginPayload) => {
 
+    // check user is exist?
+   const user=await prisma.user.findUnique({
+    where:{email:payload.email}
+   })
+//  if user doesn't exist ?
+if(!user){
+    throw new Error("Invalids credentials")
+}
+// user is inactive ?
+if(user.isActive==false){
+    throw new Error("Your account is closed now. please contact fixitnow author")
 }
 
 
-export const userService={
+// check password is matched?
+
+const isMatchedPassword=await bcrypt.compare(payload.password,user?.password)
+
+  if(!isMatchedPassword){
+    throw new Error("Invalid password")
+
+}
+
+//make jwt payload
+const jwtPayload:JwtPayload={
+    id:user?.id,
+    name:user?.name,
+    email:user?.email,
+    role:user?.role,
+
+}
+
+// make access token 
+const accessToken= makeToken(jwtPayload,config.jWt_access_secret ,{expiresIn:config.jWt_access_expires_in  }) 
+// make refresh token 
+
+const refreshToken=makeToken(jwtPayload,config.jwt_refresh_secret,{expiresIn:config.jwt_refresh_expires_in}) 
+
+
+return{
+
+    accessToken,
+    refreshToken
+}
+
+
+
+
+
+};
+
+
+export const authService={
     postUserIntoDb,
     loginUser,
 }
