@@ -4,6 +4,7 @@ model Technician {
   bio        String?
   experience Int     @default(0)
   location   String
+  slots      String[] @default([])
 
   // relation 
   user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)

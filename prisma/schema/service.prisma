@@ -3,6 +3,7 @@ model Services {
   id           String     @id @default(uuid())
   title        String
   description  String
+  price        Float
   categoryId   String
   technicianId String
   createdAt    DateTime   @default(now())
