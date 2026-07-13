@@ -76,7 +76,46 @@ const updateProfile = async (
 };
 
 
-export const technicianService={
-    postService,
-    updateProfile
-}
+
+// update updateAvailability by technician
+const updateAvailability = async (
+  payload:{slots: string},
+  id: string,
+) => {
+  
+  const{slots}=payload
+
+  const isExist = await prisma.technician.findUnique({
+    where: {
+      userId: id,
+    },
+  });
+
+  
+  if (!isExist) {
+    throw new Error("you don't have any profile to update");
+  }
+ const updatedSlots: string[] = [ slots];
+
+  const updateResult = await prisma.technician.update({
+    where: {
+      userId: id,
+    },
+    data: {
+   
+     slots:updatedSlots
+      
+    
+    },
+  });
+
+  return updateResult;
+};
+
+
+
+export const technicianService = {
+  postService,
+  updateProfile,
+  updateAvailability,
+};

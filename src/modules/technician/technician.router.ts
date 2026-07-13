@@ -6,8 +6,16 @@ import { isTechnician } from "../../middleware/isTechnician";
 
 const router=Router()
 
-router.post("/service",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isTechnician,technicianController.postService)
-router.patch("/profile",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isTechnician,technicianController.updateProfile)
+router.post("/service",
+    isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isTechnician,technicianController.postService)
+router.patch("/profile",
+    isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isTechnician,technicianController.updateProfile)
+router.patch(
+  "/availability",
+  isAuthenticated(Role.ADMIN, Role.CUSTOMER, Role.TECHNICIAN),
+  isTechnician,
+  technicianController.updateAvailability,
+);
 
 
 

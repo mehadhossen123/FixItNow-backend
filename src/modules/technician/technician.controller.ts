@@ -25,7 +25,7 @@ const postService = async (req: Request, res: Response) => {
   }
 };
 
-
+// update technician profile
 const updateProfile = async (req: Request, res: Response) => {
   try {
     const payload = req?.body;
@@ -46,9 +46,36 @@ const updateProfile = async (req: Request, res: Response) => {
   }
 };
 
+// update updateAvailability by technician
+
+const updateAvailability = async (req: Request, res: Response) => {
+  try {
+    const payload = req?.body;
+    const technicianId = req?.user?.id;
+    const result = await technicianService.updateAvailability(
+      payload,
+      technicianId as string,
+    );
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      message: "Updated availability slots",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: `${error.message}`,
+      data: null,
+    });
+  }
+};
 
 
-export const technicianController={
-    postService,
-    updateProfile,
-}
+
+
+export const technicianController = {
+  postService,
+  updateProfile,
+  updateAvailability,
+};
