@@ -108,19 +108,17 @@ const makeAccessToken=async(req:Request,res:Response)=>{
 // get my profile api 
 const getMyProfile=async(req:Request,res:Response)=>{
      try {
-      
+        const id=req?.user?.id;
+        const result=await authService.getMyProfile(id as string)
 
-       
-
-      
 
        res.status(httpStatus.OK).json({
          success: true,
-         message: "Get refresh token",
-         data: { accessToken },
+         message: "Get user profile successfully",
+         data:result
        });
      } catch (error: any) {
-       res.status(httpStatus.FORBIDDEN).json({
+       res.status(httpStatus.NOT_FOUND).json({
          success: false,
          message: `${error.message}`,
          data: null,

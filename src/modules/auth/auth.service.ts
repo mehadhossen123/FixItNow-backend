@@ -167,7 +167,22 @@ const makeAccessToken = async (token: string) => {
 };
 
 // get my profile form db 
-const getMyProfile=async()=>{
+const getMyProfile=async(id:string)=>{
+    if(!id){
+        throw new Error ("Didn't find any id")
+    }
+    const user = await prisma.user.findUniqueOrThrow({
+      where: { id },
+      include: {
+        technicianProfile :true
+      },
+      omit:{
+        password:true
+      }
+    });
+
+    return user;
+  
 
 }
 

@@ -22,8 +22,10 @@ declare global {
 
 export const isAuthenticated = (...requiredRole: Role[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const token = req?.cookies?.accessToken;
-    if (!token) {
+    const { accessToken } = req?.cookies;
+    console.log(accessToken)
+   
+    if (!accessToken) {
       return res.status(httpStatus.UNAUTHORIZED).json({
         success: false,
         statusCode: httpStatus.UNAUTHORIZED,
@@ -31,10 +33,12 @@ export const isAuthenticated = (...requiredRole: Role[]) => {
       });
     }
 
-    const verifiedToken = jwt.decode(
-      token,
-      config.jWt_access_secret as DecodeOptions,
+    const verifiedToken = jwt.verify(
+      accessToken,
+      config.jWt_access_secret ,
     );
+
+    console.log(verifiedToken,"verify token")
 
     if (typeof verifiedToken === "string") {
       throw new Error(verifiedToken);
