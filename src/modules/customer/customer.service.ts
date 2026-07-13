@@ -68,7 +68,17 @@ const getAllTechnician=async(payload:filterPayload)=>{
 // get single technician 
 const getSingleTechnician=async(id:string)=>{
     const technicians=await prisma.technician.findUnique({
-        where:{id}
+        where:{id},
+        include:{
+            user:{
+                select:{
+                    name:true,
+                    email:true,
+                    
+
+                }
+            }
+        }
     })
 
     return technicians;
