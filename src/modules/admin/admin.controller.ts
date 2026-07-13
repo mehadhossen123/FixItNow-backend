@@ -21,8 +21,28 @@ const postCategories=async(req:Request,res:Response)=>{
       });
     }
 }
+// get all  categories by admin
+const getAllCategories=async(req:Request,res:Response)=>{
+    try {
+       const role = req?.user?.role;
+  
+    const result = await adminService.getAllCategories(role as string);
+      res.status(httpStatus.OK).json({
+        success: true,
+        message: "All Category retrieve successfully",
+        data: result,
+      });
+    } catch (error: any) {
+      res.status(httpStatus.NOT_IMPLEMENTED).json({
+        success: false,
+        message: `${error.message}`,
+        data: null,
+      });
+    }
+}
 
 
 export  const adminController={
-    postCategories
+    postCategories,
+    getAllCategories,
 }
