@@ -1,7 +1,8 @@
 // post service by technician 
 
+
 import { prisma } from "../../lib/prisma";
-import { technicianServicePayload } from "./technician.interface";
+import { technicianProfilePayload, technicianServicePayload } from "./technician.interface";
 
 const postService = async (payload: technicianServicePayload,technicianId:string) => {
     console.log(technicianId,"techid")
@@ -40,6 +41,42 @@ const postService = async (payload: technicianServicePayload,technicianId:string
 };
 
 
+// update technician profile
+const updateProfile = async (
+  payload: technicianProfilePayload,
+  id: string,
+) => {
+    const {bio,location,experience,slots}=payload;
+
+    
+    const isExist=await prisma.technician.findUnique({
+        where:{
+            userId:id
+
+        }
+    })
+    if(!isExist){
+        throw new Error("you don't have any profile")
+    }
+
+    const updateResult=await prisma.technician.update({
+        where:{
+            userId:id
+        },
+        data:{
+            bio,
+            slots,
+            location,
+            experience:Number(experience)
+
+        }
+    })
+
+    return updateResult
+};
+
+
 export const technicianService={
     postService,
+    updateProfile
 }
