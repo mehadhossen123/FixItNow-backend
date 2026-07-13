@@ -12,3 +12,9 @@ export interface technicianProfilePayload {
   location?: string;
   slots?:string[]
 }
+
+
+export interface filterPayload{
+  location?:string
+  experience?:number
+}

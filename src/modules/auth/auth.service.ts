@@ -10,7 +10,7 @@ import jwt from "jsonwebtoken"
 
 // register user into db 
 const postUserIntoDb=async(payload:PayloadUser)=>{
-    console.log(payload)
+  
     const { name, email, role, password,location } = payload;
 
 //  check user is exist?

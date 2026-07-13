@@ -1,4 +1,6 @@
+import { title } from "node:process";
 import { prisma } from "../../lib/prisma"
+import { filterPayload } from "../technician/technician.interface";
 
 
 // get all service for customer 
@@ -28,8 +30,55 @@ const getAllServices=async()=>{
 
 }
 
+// get all technician 
+const getAllTechnician=async(payload:filterPayload)=>{
+        const { location, experience } = payload
+        const filter:any={};
+        if(location){
+            filter.location={
+              
+                contains: location,
+                mode: "insensitive",
+              
+            };
 
+        }
 
-export const customerService={
-    getAllServices
+        if(experience){
+            filter.experience={
+                gte:Number(experience)
+            }
+        }
+    const technicians = await prisma.technician.findMany({
+      where:filter,
+      include:{
+        user:{
+            select:{
+                name:true,
+                email:true
+            }
+        }
+      }
+    });
+
+    return technicians;
+
 }
+
+// get single technician 
+const getSingleTechnician=async(id:string)=>{
+    const technicians=await prisma.technician.findUnique({
+        where:{id}
+    })
+
+    return technicians;
+
+}
+
+
+
+export const customerService = {
+  getAllServices,
+  getAllTechnician,
+  getSingleTechnician,
+};
