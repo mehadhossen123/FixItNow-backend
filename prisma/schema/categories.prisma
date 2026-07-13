@@ -1,14 +1,13 @@
 // categories model make it by admin 
-model Categories{
-    id String @id @default(uuid())
-    name String
-    description String?
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now())
+model Categories {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
 
-    // relation 
-    service Services[]
+  // relation 
+  service Services[]
 
-@@map("categories")
-
+  @@map("categories")
 }

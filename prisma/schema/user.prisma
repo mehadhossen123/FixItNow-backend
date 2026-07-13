@@ -1,12 +1,12 @@
-model User{
-    id String @id @default(uuid())
-    name String 
-    email String @unique
-    password String
-    role Role @default(CUSTOMER)
-    isActive Boolean @default(true)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now())
-    // relation
-   technicianProfile Technician?
+model User {
+  id                String      @id @default(uuid())
+  name              String
+  email             String      @unique
+  password          String
+  role              Role        @default(CUSTOMER)
+  isActive          Boolean     @default(true)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @default(now())
+  // relation
+  technicianProfile Technician?
 }

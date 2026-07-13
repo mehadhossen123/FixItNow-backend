@@ -3,6 +3,8 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors"
 import config from "./config";
 import { authRouter} from "./modules/auth/auth.router";
+import { adminRouter } from "./modules/admin/admin.router";
+
 
 const app:Application=express()
 
@@ -21,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //  here my all route 
 app.use("/api/auth",authRouter)
+app.use("/api/admin",adminRouter)
 
 
 app.get("/",(req:Request,res:Response)=>{

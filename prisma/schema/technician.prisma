@@ -1,12 +1,13 @@
-model Technician{
-    id String @id @default(uuid())
-    userId String @unique
-    bio  String?
-    experience Int @default(0)
-    location String
+model Technician {
+  id         String  @id @default(uuid())
+  userId     String  @unique
+  bio        String?
+  experience Int     @default(0)
+  location   String
 
-    // relation 
-    user User @relation(fields: [userId],references: [id],onDelete: Cascade)
-    services Services[]
-    @@map("technician")
+  // relation 
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  services Services[]
+
+  @@map("technician")
 }
