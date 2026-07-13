@@ -1,0 +1,16 @@
+// make a service model by technicians 
+ model Services{
+    id String @id @default(uuid())
+    title String
+    description String
+    categoryId String 
+    technicianId String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now())
+    // relation
+    category Categories @relation(fields: [categoryId],references: [id],onDelete: Cascade)
+    technician Technician @relation(fields: [technicianId],references: [id],onDelete: Cascade)
+    @@map("services")
+    
+
+ }
