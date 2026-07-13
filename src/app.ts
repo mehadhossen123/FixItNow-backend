@@ -5,6 +5,7 @@ import config from "./config";
 import { authRouter} from "./modules/auth/auth.router";
 import { adminRouter } from "./modules/admin/admin.router";
 import { technicianRouter } from "./modules/technician/technician.router";
+import { customerRouter } from "./modules/customer/customer.router";
 
 
 const app:Application=express()
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth",authRouter)
 app.use("/api/admin",adminRouter)
 app.use("/api/technician",technicianRouter)
+app.use("/api/customer",customerRouter)
 
 
 app.get("/",(req:Request,res:Response)=>{
