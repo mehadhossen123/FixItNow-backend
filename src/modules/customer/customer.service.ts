@@ -85,10 +85,23 @@ const getSingleTechnician=async(id:string)=>{
 
 }
 
+// get all categories by customer 
+const getAllCategories=async()=>{
+    const result=await prisma.categories.findMany({
+        orderBy:{
+            createdAt:"desc"
+        }
+       
+    })
+
+    return result;
+}
+
 
 
 export const customerService = {
   getAllServices,
   getAllTechnician,
   getSingleTechnician,
+  getAllCategories
 };
