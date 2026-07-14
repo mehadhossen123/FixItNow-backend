@@ -1,6 +1,7 @@
 import { title } from "node:process";
 import { prisma } from "../../lib/prisma"
 import { filterPayload } from "../technician/technician.interface";
+import { BookingPostPayload } from "./customer.interface";
 
 
 // get all service for customer 
@@ -96,6 +97,38 @@ const getAllCategories=async()=>{
 
     return result;
 }
+// post booking 
+const postBookings=async(payload:BookingPostPayload, customerId:string)=>{
+    const { serviceId, technicianId, totalCost, bookingDate }=payload;
+    // check technician is available or not available 
+    const isTechnicianFree=await prisma.booking.findFirst({
+        where:{
+           technicianId,
+           bookingDate:new Date(bookingDate),
+           status:"ACCEPT"
+           
+            
+        }
+    
+    })
+    if(isTechnicianFree){
+        throw new Error("The technician are not available at this moment. please try later")
+
+    }
+
+    const postBooking=await prisma.booking.create({
+        data:{
+            technicianId,
+            customerId,
+            bookingDate:new Date(bookingDate),
+            serviceId,
+            totalCost:Number(totalCost)
+        }
+    })
+
+    return postBooking
+
+}
 
 
 
@@ -103,5 +136,6 @@ export const customerService = {
   getAllServices,
   getAllTechnician,
   getSingleTechnician,
-  getAllCategories
+  getAllCategories,
+  postBookings
 };
