@@ -4,3 +4,10 @@ enum Role {
   ADMIN
   TECHNICIAN
 }
+
+enum BookingStatus{
+  PENDING
+  ACCEPT
+  DECLINE
+  COMPLETE
+}

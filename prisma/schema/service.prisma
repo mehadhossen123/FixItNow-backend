@@ -11,6 +11,7 @@ model Services {
   // relation
   category     Categories @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   technician   Technician @relation(fields: [technicianId], references: [id], onDelete: Cascade)
+  booking Booking[]
 
   @@map("services")
 }

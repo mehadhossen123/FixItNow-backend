@@ -1,0 +1,18 @@
+// this is booking model 
+
+model Booking{
+    id String @id  @default(uuid())
+    customerId String @unique
+    serviceId String @unique
+    technicianId String @unique
+    totalCost Decimal
+    status BookingStatus @default(PENDING)
+    bookingDate DateTime 
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now())
+    // relation 
+    customer User @relation(fields: [customerId],references: [id],onDelete: Cascade)
+    service Services @relation(fields: [serviceId],references: [id],onDelete: Cascade)
+    technician Technician @relation( fields: [technicianId],references: [id],onDelete: Cascade)
+
+}

@@ -9,6 +9,7 @@ model Technician {
   // relation 
   user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   services Services[]
+  bookings Booking[]
 
   @@map("technician")
 }

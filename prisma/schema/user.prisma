@@ -9,4 +9,5 @@ model User {
   updatedAt         DateTime    @default(now())
   // relation
   technicianProfile Technician?
+  bookings Booking[]
 }
