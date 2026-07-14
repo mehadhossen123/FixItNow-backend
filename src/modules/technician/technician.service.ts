@@ -113,9 +113,31 @@ const updateAvailability = async (
 };
 
 
+// getAllBookings 
+const getAllBookings = async (technicianId:string) => {
+   const result=await prisma.booking.findMany({
+    where:{
+      technicianId:technicianId
+    },
+    include:{
+      customer:{
+        select:{
+          name:true,
+          email:true
+        }
+      }
+    }
+   })
+
+
+   return result;
+};
+
+
 
 export const technicianService = {
   postService,
   updateProfile,
   updateAvailability,
+  getAllBookings,
 };

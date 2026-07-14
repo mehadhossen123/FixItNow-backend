@@ -4,23 +4,31 @@ import { isAuthenticated } from "../../middleware/isAuthenticated";
 import { Role } from "../../../generated/prisma/enums";
 import { isTechnician } from "../../middleware/isTechnician";
 
-const router=Router()
+const router = Router();
 
-router.post("/service",
-    isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isTechnician,technicianController.postService)
-router.patch("/profile",
-    isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isTechnician,technicianController.updateProfile)
+router.post(
+  "/service",
+  isAuthenticated(Role.ADMIN, Role.CUSTOMER, Role.TECHNICIAN),
+  isTechnician,
+  technicianController.postService,
+);
+router.patch(
+  "/profile",
+  isAuthenticated(Role.ADMIN, Role.CUSTOMER, Role.TECHNICIAN),
+  isTechnician,
+  technicianController.updateProfile,
+);
 router.patch(
   "/availability",
   isAuthenticated(Role.ADMIN, Role.CUSTOMER, Role.TECHNICIAN),
   isTechnician,
   technicianController.updateAvailability,
 );
+router.get(
+  "/bookings",
+  isAuthenticated(Role.ADMIN, Role.TECHNICIAN, Role.CUSTOMER),
+  isTechnician,
+  technicianController.getAllBookings,
+);
 
-
-
-
-
-
-
-export const technicianRouter=router
+export const technicianRouter = router;

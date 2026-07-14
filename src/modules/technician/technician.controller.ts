@@ -70,6 +70,28 @@ const updateAvailability = async (req: Request, res: Response) => {
     });
   }
 };
+const getAllBookings = async (req: Request, res: Response) => {
+  try {
+   
+    const technicianId = req?.user?.id;
+    const result = await technicianService.getAllBookings(
+      
+      technicianId as string,
+    );
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      message: "Get all bookings",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: `${error.message}`,
+      data: null,
+    });
+  }
+};
 
 
 
@@ -78,4 +100,5 @@ export const technicianController = {
   postService,
   updateProfile,
   updateAvailability,
+  getAllBookings,
 };
