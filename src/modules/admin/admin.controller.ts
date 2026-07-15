@@ -40,9 +40,29 @@ const getAllCategories=async(req:Request,res:Response)=>{
       });
     }
 }
+// get all  users by admin
+const getAllUsers=async(req:Request,res:Response)=>{
+    try {
+       
+  
+    const result = await adminService.getAllUsers();
+      res.status(httpStatus.OK).json({
+        success: true,
+        message: "All users retrieve successfully",
+        data: result,
+      });
+    } catch (error: any) {
+      res.status(httpStatus.NOT_IMPLEMENTED).json({
+        success: false,
+        message: `${error.message}`,
+        data: null,
+      });
+    }
+}
 
 
 export  const adminController={
     postCategories,
     getAllCategories,
+    getAllUsers
 }

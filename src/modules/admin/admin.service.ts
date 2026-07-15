@@ -39,8 +39,20 @@ const getAllCategories=async(role:string)=>{
 
 }
 
+// get all users by admin 
+const getAllUsers=async()=>{
+    const result=await prisma.user.findMany({
+        orderBy:{
+            createdAt:"desc"
+        }
+    })
+
+    return result
+}
+
 
 export const adminService={
     postCategories,
-    getAllCategories
+    getAllCategories,
+    getAllUsers
 }
