@@ -59,10 +59,52 @@ const getAllUsers=async(req:Request,res:Response)=>{
       });
     }
 }
-
-
-export  const adminController={
-    postCategories,
-    getAllCategories,
-    getAllUsers
+// update   users status by admin
+const updateUserStatus=async(req:Request,res:Response)=>{
+    try {
+      const userId=req.params.id;
+      const payload=req.body;
+       
+  
+    const result = await adminService.updateUserStatus(payload ,userId as string);
+      res.status(httpStatus.OK).json({
+        success: true,
+        message: "Update user status successfully",
+        data: result,
+      });
+    } catch (error: any) {
+      res.status(httpStatus.NOT_IMPLEMENTED).json({
+        success: false,
+        message: `${error.message}`,
+        data: null,
+      });
+    }
 }
+// get all bookings  by admin
+const getAllBookings=async(req:Request,res:Response)=>{
+    try {
+     
+  
+    const result = await adminService.getAllBookings()
+      res.status(httpStatus.OK).json({
+        success: true,
+        message: "All booking retrieve successfully",
+        data: result,
+      });
+    } catch (error: any) {
+      res.status(httpStatus.NOT_IMPLEMENTED).json({
+        success: false,
+        message: `${error.message}`,
+        data: null,
+      });
+    }
+}
+
+
+export  const adminController = {
+  postCategories,
+  getAllCategories,
+  getAllUsers,
+  updateUserStatus,
+  getAllBookings,
+};

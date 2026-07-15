@@ -11,3 +11,8 @@ enum BookingStatus{
   DECLINE
   COMPLETE
 }
+
+enum UserStatus{
+  BLOCKED
+  ACTIVE
+}

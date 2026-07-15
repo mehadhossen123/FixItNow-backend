@@ -1,6 +1,7 @@
 import { get } from "node:http";
 import { prisma } from "../../lib/prisma";
-import { CategoryPayload } from "./admin.interface"
+import { CategoryPayload, updateStatusPayload } from "./admin.interface"
+import { UserStatus } from "../../../generated/prisma/enums";
 
 // post categories by admin 
 const postCategories=async(payload:CategoryPayload,role:string)=>{
@@ -44,15 +45,57 @@ const getAllUsers=async()=>{
     const result=await prisma.user.findMany({
         orderBy:{
             createdAt:"desc"
+        },
+        omit:{
+            password:true
         }
     })
 
     return result
+}
+// update user status 
+const updateUserStatus=async(payload:updateStatusPayload,id:string)=>{
+    const {status}=payload;
+    // this si my mind maping part 
+    if (status !== UserStatus.ACTIVE && status !==UserStatus.BLOCKED) {
+      throw new Error("You can only blocked or active the user");
+    }
+    const updateStatus=await prisma.user.update({
+        where:{
+            id:id
+        },
+        data:{
+            status:status
+
+        },
+        omit:{
+            password:true
+        }
+
+    })
+
+    return updateStatus;
+}
+
+
+// get all bookings 
+const getAllBookings=async()=>{
+    const result=await prisma.booking.findMany({
+        orderBy:{
+            createdAt:"desc"
+        }
+    })
+
+    if(!result){
+        throw new Error("There is no booking in your app")
+    }
 }
 
 
 export const adminService={
     postCategories,
     getAllCategories,
-    getAllUsers
+    getAllUsers,
+    updateUserStatus,
+    getAllBookings
 }
