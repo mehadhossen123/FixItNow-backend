@@ -2,6 +2,7 @@ import { title } from "node:process";
 import { prisma } from "../../lib/prisma"
 import { filterPayload } from "../technician/technician.interface";
 import { BookingPostPayload } from "./customer.interface";
+import { get } from "node:http";
 
 
 // get all service for customer 
@@ -130,6 +131,38 @@ const postBookings=async(payload:BookingPostPayload, customerId:string)=>{
 
 }
 
+// get all bookings 
+
+const getBookings=async(id:string)=>{
+
+    const result=await prisma.booking.findMany({
+        where:{
+            customerId:id
+        }
+    })
+
+    if(!result){
+        throw new Error("You have no booking now")
+    }
+
+    return result;
+
+}
+// get single bookings 
+const getSingleBooking=async(id:string)=>{
+
+    const result=await prisma.booking.findUnique({
+        where:{
+            id
+        }
+    })
+
+    
+
+    return result;
+
+}
+
 
 
 export const customerService = {
@@ -137,5 +170,7 @@ export const customerService = {
   getAllTechnician,
   getSingleTechnician,
   getAllCategories,
-  postBookings
+  postBookings,
+  getBookings,
+  getSingleBooking,
 };

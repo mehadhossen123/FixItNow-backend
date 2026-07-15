@@ -12,6 +12,14 @@ router.get("/technicians/:id",customerController.getSingleTechnician)
 router.get("/categories",customerController.getAllCategories)
 router.post("/bookings",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isCustomer
 ,customerController.postBookings)
+router.get("/bookings",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isCustomer
+,customerController.getBookings)
+router.get(
+  "/bookings/:id",
+  isAuthenticated(Role.ADMIN, Role.CUSTOMER, Role.TECHNICIAN),
+  isCustomer,
+  customerController.getSingleBooking,
+);
 
 
 export const customerRouter=router

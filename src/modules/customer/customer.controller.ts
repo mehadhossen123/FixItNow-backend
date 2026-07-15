@@ -84,7 +84,7 @@ const getAllCategories = async (req: Request, res: Response) => {
     });
   }
 };
-
+// post booking 
 const postBookings = async (req: Request, res: Response) => {
   try {
     const customerId=req?.user?.id;
@@ -104,6 +104,46 @@ const postBookings = async (req: Request, res: Response) => {
     });
   }
 };
+// get  bookings 
+const getBookings = async (req: Request, res: Response) => {
+  try {
+    const customerId=req?.user?.id;
+   
+    const result = await customerService.getBookings(customerId as string)
+    
+    res.status(httpsStatus.OK).json({
+      success: true,
+      message: "Get booking successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: `${error.message}`,
+      data: null,
+    });
+  }
+};
+//  get single bookings 
+const getSingleBooking = async (req: Request, res: Response) => {
+  try {
+    const bookingId=req?.params.id;
+   
+    const result = await customerService.getSingleBooking(bookingId  as string)
+    
+    res.status(httpsStatus.OK).json({
+      success: true,
+      message: "Get single booking successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: `${error.message}`,
+      data: null,
+    });
+  }
+};
 
 
 
@@ -113,5 +153,7 @@ export const customerController = {
   getAllTechnician,
   getSingleTechnician,
   getAllCategories,
-  postBookings
+  postBookings,
+  getBookings,
+  getSingleBooking,
 };

@@ -74,6 +74,7 @@ const getAllBookings = async (req: Request, res: Response) => {
   try {
    
     const technicianId = req?.user?.id;
+    
     const result = await technicianService.getAllBookings(
       
       technicianId as string,

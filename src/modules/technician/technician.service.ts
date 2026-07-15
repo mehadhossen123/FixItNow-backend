@@ -115,18 +115,29 @@ const updateAvailability = async (
 
 // getAllBookings 
 const getAllBookings = async (technicianId:string) => {
+  // check is technician is exist 
+  const findTechnician=await prisma.technician.findUnique({
+    where:{
+      userId:technicianId
+    }
+  })
+  if(!findTechnician){
+    throw new Error("There is no technician profile")
+  }
+  
    const result=await prisma.booking.findMany({
     where:{
-      technicianId:technicianId
+      technicianId:findTechnician.id
     },
-    include:{
-      customer:{
-        select:{
-          name:true,
-          email:true
-        }
+   include: {
+    customer:{
+      select:{
+        name:true,
+        email:true
       }
     }
+    
+   }
    })
 
 
