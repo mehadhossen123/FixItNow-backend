@@ -30,5 +30,11 @@ router.get(
   isTechnician,
   technicianController.getAllBookings,
 );
+router.patch(
+  "/bookings/:id",
+  isAuthenticated(Role.ADMIN, Role.TECHNICIAN, Role.CUSTOMER),
+  isTechnician,
+  technicianController.updateBookingStatus,
+);
 
 export const technicianRouter = router;

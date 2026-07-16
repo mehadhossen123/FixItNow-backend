@@ -70,6 +70,8 @@ const updateAvailability = async (req: Request, res: Response) => {
     });
   }
 };
+
+// get all bookings 
 const getAllBookings = async (req: Request, res: Response) => {
   try {
    
@@ -96,10 +98,41 @@ const getAllBookings = async (req: Request, res: Response) => {
 
 
 
+// update booking status by technician
+const updateBookingStatus = async (req: Request, res: Response) => {
+  try {
+    const payload = req?.body;
+    const technicianId=req?.user?.id;
+    const bookingId=req.params.id;
+    const result = await technicianService.updateBookingStatus(payload,technicianId as string,bookingId as string)
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      message: "Update booking status successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: `${error.message}`,
+      data: null,
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
 
 export const technicianController = {
   postService,
   updateProfile,
   updateAvailability,
   getAllBookings,
+  updateBookingStatus,
 };

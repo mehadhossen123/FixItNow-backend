@@ -9,6 +9,6 @@ router.post("/categories",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICI
 router.get("/categories",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isAdmin,adminController.getAllCategories)
 router.get("/users",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isAdmin,adminController.getAllUsers)
 router.patch("/user/:id",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isAdmin,adminController.updateUserStatus)
-router.get("/bookings",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isAdmin,adminController.updateUserStatus)
+router.get("/bookings",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isAdmin,adminController.getAllBookings)
 
 export const adminRouter = router;

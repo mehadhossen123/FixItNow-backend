@@ -86,9 +86,9 @@ const getAllBookings=async()=>{
         }
     })
 
-    if(!result){
-        throw new Error("There is no booking in your app")
-    }
+    return result
+
+    
 }
 
 

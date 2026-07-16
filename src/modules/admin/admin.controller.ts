@@ -86,6 +86,9 @@ const getAllBookings=async(req:Request,res:Response)=>{
      
   
     const result = await adminService.getAllBookings()
+    if (!result) {
+      throw new Error("There is no booking in your app");
+    }
       res.status(httpStatus.OK).json({
         success: true,
         message: "All booking retrieve successfully",

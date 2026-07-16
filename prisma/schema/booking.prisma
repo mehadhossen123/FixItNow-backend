@@ -2,9 +2,9 @@
 
 model Booking{
     id String @id  @default(uuid())
-    customerId String @unique
-    serviceId String @unique
-    technicianId String @unique
+    customerId String 
+    serviceId String 
+    technicianId String 
     totalCost Decimal
     status BookingStatus @default(PENDING)
     bookingDate DateTime 

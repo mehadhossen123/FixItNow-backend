@@ -1,8 +1,10 @@
 // post service by technician 
 
 
+import { error } from "node:console";
+import { BookingStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
-import { technicianProfilePayload, technicianServicePayload } from "./technician.interface";
+import { Status, technicianProfilePayload, technicianServicePayload } from "./technician.interface";
 
 const postService = async (payload: technicianServicePayload,technicianId:string) => {
     console.log(technicianId,"techid")
@@ -142,7 +144,59 @@ const getAllBookings = async (technicianId:string) => {
 
 
    return result;
+};  
+
+
+// update bookings status 
+const updateBookingStatus = async (
+  payload: Status,
+  technicianId: string,
+  bookingId:string,
+) => {
+  const {status}=payload
+  const booking=await prisma.booking.findUnique({
+    where:{id:bookingId}
+  })
+
+  const technician=await prisma.technician.findUnique({
+    where:{userId:technicianId}
+  })
+
+ if (!technician){
+    throw new Error("Didn't found any technician profile");
+    
+  }
+
+  if(booking?.technicianId!==technician?.id){
+    throw new Error("This is not your booking")
+
+  }
+  if(booking?.status=="DECLINE" && status==BookingStatus.DECLINE){
+    throw new Error("You have already decline the booking")
+  }
+  if(booking?.status=="ACCEPT" && status==BookingStatus.ACCEPT){
+    throw new Error("You have already accept the booking")
+  }
+
+  if(booking?.status=="PENDING" && (status==BookingStatus.ACCEPT || 
+    status==BookingStatus.DECLINE)){
+   const updated= await prisma.booking.update({
+      where:{id:bookingId},
+      data:{
+        status:status
+      }
+    })
+
+    return updated;
+
+  }
+
+  throw new Error("Invalid status for this booking")
+  
+  
+
 };
+
 
 
 
@@ -151,4 +205,5 @@ export const technicianService = {
   updateProfile,
   updateAvailability,
   getAllBookings,
+  updateBookingStatus,
 };

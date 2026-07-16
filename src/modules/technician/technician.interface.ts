@@ -1,3 +1,5 @@
+import { BookingStatus } from "../../../generated/prisma/enums";
+
 export interface technicianServicePayload {
   title: string;
   price: number;
@@ -17,4 +19,8 @@ export interface technicianProfilePayload {
 export interface filterPayload{
   location?:string
   experience?:number
+}
+
+export interface Status {
+  status: BookingStatus;
 }
