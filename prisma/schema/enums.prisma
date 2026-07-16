@@ -16,3 +16,10 @@ enum UserStatus{
   BLOCKED
   ACTIVE
 }
+
+
+enum PaymentStatus {
+  PENDING
+  FAILED
+  CANCELLED
+}

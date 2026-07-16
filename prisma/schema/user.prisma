@@ -10,5 +10,8 @@ model User {
   updatedAt         DateTime    @default(now())
   // relation
   technicianProfile Technician?
+  // stripe related id 
+  stripeCustomerId String? @unique
   bookings Booking[]
+  payments Payment[]
 }

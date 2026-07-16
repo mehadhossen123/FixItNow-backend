@@ -6,6 +6,9 @@ import { authRouter} from "./modules/auth/auth.router";
 import { adminRouter } from "./modules/admin/admin.router";
 import { technicianRouter } from "./modules/technician/technician.router";
 import { customerRouter } from "./modules/customer/customer.router";
+import { paymentRoute } from "./modules/payment/payment.route";
+import httpStatus from 'http-status-codes'
+
 
 
 const app:Application=express()
@@ -16,6 +19,11 @@ app.use(cors({
   credentials:true
 
 }))
+app.get("/", (req: Request, res: Response) => {
+  res.send("the is the Fixitnow server ");
+});
+
+
 
 // SOME MIDDLE WARE 
 
@@ -28,11 +36,16 @@ app.use("/api/auth",authRouter)
 app.use("/api/admin",adminRouter)
 app.use("/api/technician",technicianRouter)
 app.use("/api/customer",customerRouter)
+app.use("/api/payment",paymentRoute)
 
-
-app.get("/",(req:Request,res:Response)=>{
-    res.send("the is the Fixitnow server ")
+// route not found path 
+app.use((req:Request,res:Response)=>{
+  res.status(httpStatus.NOT_FOUND).json({
+    message:"Route not found",
+    path:req.originalUrl
+  })
 })
+
 
 
 

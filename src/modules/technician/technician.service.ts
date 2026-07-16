@@ -1,7 +1,4 @@
 // post service by technician 
-
-
-import { error } from "node:console";
 import { BookingStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { Status, technicianProfilePayload, technicianServicePayload } from "./technician.interface";

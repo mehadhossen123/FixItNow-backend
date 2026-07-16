@@ -15,4 +15,6 @@ model Booking{
     service Services @relation(fields: [serviceId],references: [id],onDelete: Cascade)
     technician Technician @relation( fields: [technicianId],references: [id],onDelete: Cascade)
 
+    payment Payment?
+
 }
