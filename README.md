@@ -1,3 +1,9 @@
+
+# live url: https://fix-it-now-sigma-wheat.vercel.app/
+
+# admin credentials : 
+ "email": "arif2.tech@gmail.com",
+  "password": "securepassword123"
 # FixItNow 🛠️ | On-Demand Technician Booking System
 
 FixItNow is a robust, asynchronous backend REST API engine engineered for managing on-demand home maintenance and technician servicing workflows. It features a complete transactional state machine tracking bookings from requests to execution, backed by strict referential database architecture, RBAC secure guardrails, and automated payment gateway tracking infrastructure.
