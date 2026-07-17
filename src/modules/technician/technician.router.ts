@@ -36,5 +36,17 @@ router.patch(
   isTechnician,
   technicianController.updateBookingStatus,
 );
+router.patch(
+  "/bookings/in-process/:id",
+  isAuthenticated(Role.ADMIN, Role.TECHNICIAN, Role.CUSTOMER),
+  isTechnician,
+  technicianController.updateBookingStatus,
+);
+router.patch(
+  "/bookings/complete/:id",
+  isAuthenticated(Role.ADMIN, Role.TECHNICIAN, Role.CUSTOMER),
+  isTechnician,
+  technicianController.updateBookingStatus,
+);
 
 export const technicianRouter = router;

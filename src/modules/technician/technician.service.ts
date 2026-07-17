@@ -183,6 +183,31 @@ const updateBookingStatus = async (
         status:status
       }
     })
+    return updated
+  
+  }
+
+
+  if(booking?.status=="PAID" && (status==BookingStatus.IN_PROGRESS|| 
+    status==BookingStatus.DECLINE)){
+   const updated= await prisma.booking.update({
+      where:{id:bookingId},
+      data:{
+        status:status
+      }
+    })
+
+    return updated;
+
+  }
+  if(booking?.status=="IN_PROGRESS" && (status==BookingStatus.COMPLETE|| 
+    status==BookingStatus.DECLINE)){
+   const updated= await prisma.booking.update({
+      where:{id:bookingId},
+      data:{
+        status:status
+      }
+    })
 
     return updated;
 
