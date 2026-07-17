@@ -8,10 +8,10 @@
   "main": "server.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "stripe:webhook":"stripe listen --forward-to localhost:3000/api/payment/webhook",
-    "build": "tsc",
+    "stripe:webhook": "stripe listen --forward-to localhost:3000/api/payment/webhook",
+    "build": "tsup",
     "start": "node dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "prisma generate"
   },
   "devDependencies": {
     "@types/node": "^26.1.1",
@@ -37,6 +37,7 @@
     "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.22.0",
-    "stripe": "^22.3.2"
+    "stripe": "^22.3.2",
+    "tsup": "^8.5.1"
   }
 }
