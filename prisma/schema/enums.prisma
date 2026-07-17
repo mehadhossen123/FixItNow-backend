@@ -10,6 +10,7 @@ enum BookingStatus{
   ACCEPT
   DECLINE
   COMPLETE
+  PAID
 }
 
 enum UserStatus{
@@ -22,4 +23,6 @@ enum PaymentStatus {
   PENDING
   FAILED
   CANCELLED
+  SUCCESS
+  PAID
 }

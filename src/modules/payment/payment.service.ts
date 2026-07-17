@@ -1,4 +1,5 @@
-import { BookingStatus } from "../../../generated/prisma/enums";
+import Stripe from "stripe";
+import { BookingStatus, PaymentStatus } from "../../../generated/prisma/enums";
 
 import config from "../../config";
 import { prisma } from "../../lib/prisma"
@@ -26,7 +27,7 @@ const createCheckOut = async (id: string, bookingId:string) => {
         })
 
       
-        
+        // check have any customer id is exist in the user attribute ?
 
         if (booking?.customer?.id !== id) {
           throw new Error(
@@ -38,7 +39,7 @@ const createCheckOut = async (id: string, bookingId:string) => {
         }
 
         let stripeCustomerId=booking.customer.stripeCustomerId;
-
+        // if not then  make a customer profile 
         if(!stripeCustomerId){
             const makeStripeCustomerId=await stripe.customers.create({
                 name:booking.customer.name,
@@ -108,7 +109,102 @@ const createCheckOut = async (id: string, bookingId:string) => {
 };
 
 
+// handle webhook 
+const handleWebhook = async (payload: Buffer, signature: string) => {
+  const endpointSecret = config.stripe_webhook_secret;
+
+  const event = stripe.webhooks.constructEvent(
+    payload,
+    signature,
+    endpointSecret!,
+  );
+
+//   event er type onujaye alada alada function call kora 
+  switch (event.type) {
+    case "checkout.session.completed":
+      // if payment successfully done 
+      await handleBookingPaymentComplete(
+        event.data.object as Stripe.Checkout.Session,
+      );
+      break;
+
+    case "checkout.session.expired":
+      // if payment failed
+      await handleBookingPaymentFailed(
+        event.data.object as Stripe.Checkout.Session,
+      );
+      break;
+
+    default:
+      console.log(`Unhandled event type ${event.type}.`);
+      break;
+  }
+};
+
+
+
+
+//if payment successfully done (checkout.session.completed)
+const handleBookingPaymentComplete = async (session: Stripe.Checkout.Session) => {
+  // meta deta theke booking id and userid ana
+  const bookingId = session.metadata?.bookingId;
+  const userId = session.metadata?.userId;
+
+  if (!bookingId || !userId) {
+    throw new Error("Webhook failed: Missing metadata fields");
+  }
+
+  // update booking and payment status 
+  await prisma.$transaction(async (tx) => {
+    
+    // update booking status
+    await tx.booking.update({
+      where: { id: bookingId },
+      data: {
+        status: PaymentStatus.PAID, 
+      },
+    });
+
+    // update payment table into db
+    await tx.payment.upsert({
+      where: { bookingId: bookingId },
+      create: {
+        bookingId: bookingId,
+        customerId: userId, 
+        status: PaymentStatus.PAID, 
+      },
+      update: {
+        status: PaymentStatus.PAID,
+        updatedAt: new Date(),
+      },
+    });
+  });
+
+  
+};
+
+
+//  if payment failed (checkout.session.expired)
+const handleBookingPaymentFailed = async (session: Stripe.Checkout.Session) => {
+  const bookingId = session.metadata?.bookingId;
+
+  if (!bookingId) return;
+
+  
+  await prisma.payment.update({
+    where: { bookingId: bookingId },
+    data: {
+      status: PaymentStatus.FAILED, 
+      updatedAt: new Date(),
+    },
+  });
+  
+ 
+};
+
 
 export const paymentService={
-    createCheckOut
+    createCheckOut,
+    handleWebhook
+    
 }

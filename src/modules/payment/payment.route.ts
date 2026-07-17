@@ -7,6 +7,7 @@ import { paymentController } from "./payment.controller";
 const router=Router();
 
 router.post("/create",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isCustomer,paymentController.createCheckoutSession)
+router.post("/webhook",paymentController.handleWebhook)
 
 
 

@@ -19,6 +19,12 @@ app.use(cors({
   credentials:true
 
 }))
+
+// webhook api is here 
+
+app.use("/api/payment/webhook", express.raw({ type: "application/json" }));
+
+
 app.get("/", (req: Request, res: Response) => {
   res.send("the is the Fixitnow server ");
 });
