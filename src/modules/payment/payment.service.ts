@@ -203,8 +203,44 @@ const handleBookingPaymentFailed = async (session: Stripe.Checkout.Session) => {
 };
 
 
+// get all payment history for a customer 
+const getAllPaymentHistory=async(customerId:string)=>{
+
+  if(!customerId){
+    throw new Error("Customer id is required")
+  }
+
+
+  const paymentHistory=await prisma.payment.findMany({
+    where:{
+      customerId:customerId
+    }
+  })
+
+  return paymentHistory;
+
+}
+// get all payment history for a customer 
+const getSinglePaymentHistory = async (id:string) => {
+  if (!id) {
+    throw new Error(" id is required");
+  }
+
+  const paymentHistory = await prisma.payment.findUnique({
+    where: {
+      id
+    
+    }
+  });
+
+  return paymentHistory;
+};
+
+
 export const paymentService={
     createCheckOut,
-    handleWebhook
+    handleWebhook,
+    getAllPaymentHistory,
+    getSinglePaymentHistory
     
 }

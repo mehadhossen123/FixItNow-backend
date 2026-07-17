@@ -174,6 +174,12 @@ const updateBookingStatus = async (
   if(booking?.status=="ACCEPT" && status==BookingStatus.ACCEPT){
     throw new Error("You have already accept the booking")
   }
+  if (booking?.status == "IN_PROGRESS" && status == BookingStatus.IN_PROGRESS) {
+    throw new Error("The booking is already in_progress mode");
+  }
+  if (booking?.status == "COMPLETE" && status == BookingStatus.COMPLETE) {
+    throw new Error("The booking is already completed");
+  }
 
   if(booking?.status=="PENDING" && (status==BookingStatus.ACCEPT || 
     status==BookingStatus.DECLINE)){

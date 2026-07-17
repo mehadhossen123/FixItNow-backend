@@ -8,6 +8,8 @@ import { technicianRouter } from "./modules/technician/technician.router";
 import { customerRouter } from "./modules/customer/customer.router";
 import { paymentRoute } from "./modules/payment/payment.route";
 import httpStatus from 'http-status-codes'
+import { reviewRouter } from "./modules/review/review.router";
+
 
 
 
@@ -43,6 +45,7 @@ app.use("/api/admin",adminRouter)
 app.use("/api/technician",technicianRouter)
 app.use("/api/customer",customerRouter)
 app.use("/api/payment",paymentRoute)
+app.use("/api/review",reviewRouter)
 
 // route not found path 
 app.use((req:Request,res:Response)=>{

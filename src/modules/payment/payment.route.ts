@@ -8,6 +8,8 @@ const router=Router();
 
 router.post("/create",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isCustomer,paymentController.createCheckoutSession)
 router.post("/webhook",paymentController.handleWebhook)
+router.get("/payments",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isCustomer,paymentController.getAllPaymentHistory)
+router.get("/payments/:id",isAuthenticated(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),isCustomer,paymentController.getSinglePaymentHistory)
 
 
 
