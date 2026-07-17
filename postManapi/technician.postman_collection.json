@@ -1,0 +1,157 @@
+{
+  "info": {
+    "_postman_id": "405959c5-b44a-4907-8664-1d538b30adaa",
+    "name": "technician",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56565654"
+  },
+  "item": [
+    {
+      "name": "post-service",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Wooden Door Alignment & Lock Installation\",\r\n  \"description\": \"Fixing loose door hinges, correcting structural alignment issues due to swelling, and installing a new high-security mortise door lock set.\",\r\n  \"price\": 600.00,\r\n  \"categoryId\": \"978d2fdc-8ac4-4d5b-a094-fe0b3f6af88c\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/technician/service",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "technician",
+            "service"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update-profile",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": " {\r\n  \r\n  \"experience\": 3\r\n \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/technician/profile",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "technician",
+            "profile"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update-slots",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n     \"slots\": \r\n            \"Saturday 09:00 AM - 04:00 PM\"\r\n           \r\n        \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/technician/availability",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "technician",
+            "availability"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-all-bookings",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/technician/bookings",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "technician",
+            "bookings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update-booking-status",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"status\":\"COMPLETE\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/technician/bookings/28091222-1365-43a0-a33b-1a1df10a653e",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "technician",
+            "bookings",
+            "28091222-1365-43a0-a33b-1a1df10a653e"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -1,0 +1,293 @@
+{
+  "info": {
+    "_postman_id": "6299fb13-9c9f-4966-ae8d-8f9c1d624a5f",
+    "name": "customer",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56565654"
+  },
+  "item": [
+    {
+      "name": "get-all-services",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/customer",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "customer"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-technician",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/customer/technician?experience=2",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "technician"
+          ],
+          "query": [
+            {
+              "key": "experience",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-single-technician",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/customer/technicians/869f7968-718d-43be-bb94-dcf97f1fd083",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "technicians",
+            "869f7968-718d-43be-bb94-dcf97f1fd083"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-all-categories",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/customer/categories",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "categories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "booking-service",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"technicianId\": \"869f7968-718d-43be-bb94-dcf97f1fd083\",\r\n  \"serviceId\": \"feb1dc3a-182b-4898-aa3b-4139a8849450\",\r\n  \"bookingDate\": \"2026-08-25T10:00:00.000Z\",\r\n  \"totalCost\": 1000\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/customer/bookings",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "bookings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-all-bookings",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/customer/bookings",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "bookings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-single-booking",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"technicianId\": \"869f7968-718d-43be-bb94-dcf97f1fd083\",\r\n  \"serviceId\": \"4f5252b8-f314-4d2f-a6d7-6cc892bd226e\",\r\n  \"bookingDate\": \"2026-07-25T10:00:00.000Z\",\r\n  \"totalCost\": 1200\r\n}"
+        },
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/customer/bookings/e48474c9-bdd5-4088-b0ae-79fb76214db0",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "bookings",
+            "e48474c9-bdd5-4088-b0ae-79fb76214db0"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create-payment-session",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"bookingId\": \"28091222-1365-43a0-a33b-1a1df10a653e\"\r\n \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/payment/create",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "payment",
+            "create"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-all-payment-history",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/payment/payments",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "payment",
+            "payments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-single-payment-history",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/payment/payments/7e881ace-bf82-4863-85cd-41fcbc4b129a",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "payment",
+            "payments",
+            "7e881ace-bf82-4863-85cd-41fcbc4b129a"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "review-for-booking",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"bookingId\": \"6006c71c-41de-4026-80dc-5e6bfe16f89e\",\r\n  \"technicianId\": \"869f7968-718d-43be-bb94-dcf97f1fd083\",\r\n  \"rating\": 5,\r\n  \"comment\": \"Wonderfull service and service man also very friendly and polite.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/review",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "review"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

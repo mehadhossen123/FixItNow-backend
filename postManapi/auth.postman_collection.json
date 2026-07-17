@@ -1,0 +1,94 @@
+{
+  "info": {
+    "_postman_id": "13a1dcd3-c11a-40e0-8648-89389d5567e3",
+    "name": "auth",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56565654"
+  },
+  "item": [
+    {
+      "name": "register-user",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"kamal Rahman\",\r\n  \"email\": \"kamall.tech@gmail.com\",\r\n  \"password\": \"securepassword123\",\r\n  \"role\": \"TECHNICIAN\",\r\n  \"location\": \"Charfassion, Dhaka\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/auth/register",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login-user",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "  {\r\n \"email\": \"arif5.tech@gmail.com\",\r\n  \"password\": \"securepassword123\"\r\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/auth/login",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-user-profile",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://fix-it-now-sigma-wheat.vercel.app/api/auth/me",
+          "protocol": "https",
+          "host": [
+            "fix-it-now-sigma-wheat",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
