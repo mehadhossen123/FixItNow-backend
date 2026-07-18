@@ -17,17 +17,17 @@ FixItNow is a robust, asynchronous backend REST API engine engineered for managi
 ## Live url : https://fix-it-now-sigma-wheat.vercel.app
 
 
-### Credentials : 
-# Admin : 
+# Credentials : 
+##  Admin : 
 "email": "arif2.tech@gmail.com",
 "password": "securepassword123"
 
-# Customer : 
+## Customer : 
 
  "email": "arif5.tech@gmail.com",
  "password": "securepassword123"
 
- # Technician : 
+ ##Technician : 
   
    "email": "mehad.tech@gmail.com",
   "password": "securepassword123"
@@ -88,75 +88,67 @@ npx prisma db push
 
 
 
+# API Endpoints Documentation
+
+## Authentication Module (`/api/auth`)
+
+| Method | Endpoint | Allowed Roles | Description |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/auth/register` | Public | Register a new user into the system |
+| `POST` | `/api/auth/login` | Public | Log in an existing user and return tokens |
+| `POST` | `/api/auth/access-token` | Public | Generate a new access token using a refresh token |
+| `GET` | `/api/auth/me` | Admin, Customer, Technician | Get the profile details of the logged-in user |
+
+## Admin Module (`/api/admin`)
+
+| Method | Endpoint | Allowed Roles | Description |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/admin/categories` | Admin | Create a new service category |
+| `GET` | `/api/admin/categories` | Admin | Fetch all available service categories |
+| `GET` | `/api/admin/users` | Admin | Retrieve a list of all registered users |
+| `PATCH` | `/api/admin/user/:id` | Admin | Update a specific user's status (e.g., active/banned) |
+| `GET` | `/api/admin/bookings` | Admin | Retrieve all booking histories in the system |
+
+## Customer Module (`/api/customer`)
+
+| Method | Endpoint | Allowed Roles | Description |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/customer/` | Public | Get all available services |
+| `GET` | `/api/customer/technician` | Public | Fetch a list of all technicians |
+| `GET` | `/api/customer/technicians/:id` | Public | Get detailed information about a single technician |
+| `GET` | `/api/customer/categories` | Public | Get all categories available for services |
+| `POST` | `/api/customer/bookings` | Customer | Create a new service booking |
+| `GET` | `/api/customer/bookings` | Customer | Get all bookings related to the logged-in customer |
+| `GET` | `/api/customer/bookings/:id` | Customer | Fetch details of a specific booking belonging to the customer |
+
+## Payment Module (`/api/payment`)
+
+| Method | Endpoint | Allowed Roles | Description |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/payment/create` | Customer | Create a secure payment/checkout session |
+| `POST` | `/api/payment/webhook` | Public (Stripe) | Process asynchronous payment events securely |
+| `GET` | `/api/payment/payments` | Customer | Get payment history for the logged-in customer |
+| `GET` | `/api/payment/payments/:id` | Customer | Get details of a single transaction |
+
+## Technician Module (`/api/technician`)
+
+| Method | Endpoint | Allowed Roles | Description |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/technician/service` | Technician | Post or offer a new specific service skill |
+| `PATCH` | `/api/technician/profile` | Technician | Update technician profile details |
+| `PATCH` | `/api/technician/availability` | Technician | Toggle or update working availability status |
+| `GET` | `/api/technician/bookings` | Technician | View all service bookings assigned to this technician |
+| `PATCH` | `/api/technician/bookings/:id` | Technician | Update the general status of an assigned booking |
+| `PATCH` | `/api/technician/bookings/in-process/:id` | Technician | Update booking status explicitly to 'In-Process' |
+| `PATCH` | `/api/technician/bookings/complete/:id` | Technician | Mark an assigned booking as 'Completed' |
+
+## Review Module (`/api/review`)
+
+| Method | Endpoint | Allowed Roles | Description |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/review/` | Customer | Submit a review and rating for a technician's service |
+
 ---
-### 🚀 Postman Collection Links and api end points
-# API Documentation
-
-This document provides a comprehensive list of all available API endpoints, grouped by their modules, along with their HTTP methods, required roles, and descriptions.
-
-## Authentication Routes (`/api/auth`)
-These endpoints handle user registration, authentication, and session management.
-
-| Endpoint | Method | Allowed Roles | Description |
-| :--- | :--- | :--- | :--- |
-| `/register` | `POST` | Public | Register a new user into the system |
-| `/login` | `POST` | Public | Log in an existing user and return tokens |
-| `/access-token` | `POST` | Public | Generate a new access token using a refresh token |
-| `/me` | `GET` | Admin, Customer, Technician | Get the profile details of the logged-in user |
-
-## Admin Routes (`/api/admin`)
-Endpoints dedicated to administrative management. Restricted strictly to Admin users.
-
-| Endpoint | Method | Allowed Roles | Description |
-| :--- | :--- | :--- | :--- |
-| `/categories` | `POST` | Admin | Create a new service category |
-| `/categories` | `GET` | Admin | Fetch all available service categories |
-| `/users` | `GET` | Admin | Retrieve a list of all registered users |
-| `/user/:id` | `PATCH` | Admin | Update a specific user's status (e.g., active/banned) |
-| `/bookings` | `GET` | Admin | Retrieve all booking histories in the system |
-
-## Customer Routes (`/api/customer`)
-Endpoints accessible by customers for browsing and managing their bookings.
-
-| Endpoint | Method | Allowed Roles | Description |
-| :--- | :--- | :--- | :--- |
-| `/` | `GET` | Public | Get all available services |
-| `/technician` | `GET` | Public | Fetch a list of all technicians |
-| `/technicians/:id` | `GET` | Public | Get detailed information about a single technician |
-| `/categories` | `GET` | Public | Get all categories available for services |
-| `/bookings` | `POST` | Customer | Create a new service booking |
-| `/bookings` | `GET` | Customer | Get all bookings related to the logged-in customer |
-| `/bookings/:id` | `GET` | Customer | Fetch details of a specific booking belonging to the customer |
-
-## Payment Routes (`/api/payment`)
-Handles checkout sessions, payment histories, and automated payment webhooks.
-
-| Endpoint | Method | Allowed Roles | Description |
-| :--- | :--- | :--- | :--- |
-| `/create` | `POST` | Customer | Create a secure payment/checkout session |
-| `/webhook` | `POST` | Public (Stripe/Provider) | Process asynchronous payment events securely |
-| `/payments` | `GET` | Customer | Get payment history for the logged-in customer |
-| `/payments/:id` | `GET` | Customer | Get details of a single transaction |
-
-## Technician Routes (`/api/technician`)
-Endpoints for technicians to manage their profiles, schedules, and assigned jobs.
-
-| Endpoint | Method | Allowed Roles | Description |
-| :--- | :--- | :--- | :--- |
-| `/service` | `POST` | Technician | Post or offer a new specific service skill |
-| `/profile` | `PATCH` | Technician | Update technician profile details |
-| `/availability` | `PATCH` | Technician | Toggle or update working availability status |
-| `/bookings` | `GET` | Technician | View all service bookings assigned to this technician |
-| `/bookings/:id` | `PATCH` | Technician | Update the general status of an assigned booking |
-| `/bookings/in-process/:id` | `PATCH` | Technician | Update booking status explicitly to 'In-Process' |
-| `/bookings/complete/:id` | `PATCH` | Technician | Mark an assigned booking as 'Completed' |
-
-## Review Routes (`/api/review`)
-Endpoints handling user feedback and reviews for services provided.
-
-| Endpoint | Method | Allowed Roles | Description |
-| :--- | :--- | :--- | :--- |
-| `/` | `POST` | Customer | Submit a review and rating for a technician's service |
-
+**Author:** [Md Mehad Hossen]
 
 Author: [Md Mehad Hossen]
